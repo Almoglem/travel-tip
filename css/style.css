@@ -4,13 +4,13 @@
 
 body {
     margin: 0;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     font-family: 'Ubuntu';
 }
 
 header {
     background-color: #9fb8ad;
-    height: 8vh;
+    height: 10vh;
 }
 
 header h1 {
@@ -21,68 +21,49 @@ header h1 {
 }
 
 .main-layout {
-    max-width: 1500px;
-    margin: 2% auto;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
 }
-.main-layout h2 { 
+
+.main-layout h2 {
     color: #383e56;
 
 }
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.row {
-    height: 80vh;
-    background-color: #fdf1d6;
-}
-
-.map-row {
-    background-color: #fff;
-}
-
-.map-row #map {
-    padding: 50px
-}
-
 .info-row {
     display: flex;
     flex-direction: column;
+    margin-inline-end: 10px;
+    background-color: #fdf1d6;
+}
 
+.info-h2 {
+    margin-inline-start: 20px;
 }
 
 .item {
     width: 75%;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     margin: 5% auto;
     height: 100%;
 
 }
 
-@media screen and (max-width: 1600px) {
+/* large device */
+
+@media screen and (min-width: 1400px) {
     .main-layout {
-        max-width: 1400px;
+        max-width: 1300px;
     }
 }
 
-@media screen and (max-width: 1400px) {
-    .main-layout {
-        max-width: 1100px;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .main-layout {
-        max-width: 900px;
-    }
-}
-
-@media screen and (max-width: 960px) {
-    .main-layout {
-        max-width: 800px;
-    }
-}
+/* medium device(tablet) */
 
 @media screen and (max-width: 800px) {
     .main-layout {
@@ -99,32 +80,16 @@ header h1 {
     }
 }
 
-@media screen and (max-width: 700px) {
-    .main-layout {
-        max-width: 550px;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .main-layout {
-        max-width: 550px;
-    }
-}
-
+/* small device (mobile) */
 @media screen and (max-width: 550px) {
     .main-layout {
         max-width: 500px;
     }
 }
 
+
 @media screen and (max-width: 450px) {
     .main-layout {
         max-width: 400px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .main-layout {
-        max-width: 375px;
     }
 }
