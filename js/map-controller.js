@@ -1,7 +1,8 @@
 import { mapService } from './services/map-service.js'
 var gMap;
-const GOOGLE_API_KEY = config.GOOGLE_MAPS_API;
-console.log(GOOGLE_API_KEY);
+
+import keys from '../ignoreme.js';
+const gMapKey = keys.GOOGLE_MAPS_API;
 
 window.onload = () => {
     initMap();
@@ -93,7 +94,7 @@ function getPosition() {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${gMapKey}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
