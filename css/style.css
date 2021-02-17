@@ -26,6 +26,7 @@ header h1 {
 }
 .main-layout h2 { 
     color: #383e56;
+    text-align: center;
 
 }
 .grid-container {
@@ -43,7 +44,7 @@ header h1 {
 }
 
 .map-row #map {
-    padding: 50px
+    margin: 3%;
 }
 
 .info-row {
