@@ -41,7 +41,8 @@ function renderPlaces() {
         strHTMLs = places.map(place => {
             return `<ul>
         <li>${place.placeName}</li>
-        <button type="button" class="delete-btn ${place.id}">X</button>
+        <button type="button" class="delete-btn" onclick="onDeletePlace('${place.id}')">X</button>
+        <button type="button" class="goto-btn" onclick="panTo(${place.lat}, ${place.lng})">GO</button>
         </ul>`;
         }).join('');
     }
@@ -66,12 +67,13 @@ function addMarker(loc) {
     return marker;
 }
 
-
+window.onDeletePlace = onDeletePlace;
 function onDeletePlace(id) {
     mapService.deletePlace(id);
     renderPlaces();
 }
 
+window.panTo = panTo;
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
