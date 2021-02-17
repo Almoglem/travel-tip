@@ -1,6 +1,7 @@
 import { mapService } from './services/map-service.js'
 var gMap;
 const GOOGLE_API_KEY = config.GOOGLE_MAPS_API;
+console.log(GOOGLE_API_KEY);
 
 window.onload = () => {
     initMap();
