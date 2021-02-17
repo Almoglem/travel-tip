@@ -60,18 +60,14 @@ function getPosition() {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyDmGM8x0AKG54IlL3SjbyM-mSMK4vwFm5U';
+    const API_KEY = 'AIzaSyDzJ7_PLAzauKMz0ArOzeM68DU9i85rXRo'; //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https: //maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
-    });
+    })
 }
-
-
-
-
