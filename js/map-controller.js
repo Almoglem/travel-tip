@@ -3,11 +3,8 @@ import { mapService } from './services/map-service.js'
 var gMap;
 
 window.onload = () => {
-    // document.querySelector('.btn').addEventListener('click', (ev) => {
-    //     console.log('Aha!', ev.target);
-    //     panTo(35.6895, 139.6917);
-    // }) /// that button, not relevant for now
     initMap();
+    renderPlaces();
 }
 
 function initMap(lat = 35.6804, lng = 139.7690) {
@@ -22,17 +19,43 @@ function initMap(lat = 35.6804, lng = 139.7690) {
                 zoom: 15
             });
             addMarker({ lat: lat, lng: lng });
+            addMapMarkers();
 
-            // gMap.addListener("click", (mapsMouseEvent) => {
-            // let placeName = prompt('name of this place?')
-            // let lat = mapsMouseEvent.latLng.lat();
-            // let lng = mapsMouseEvent.latLng.lng();
-            // mapService.addPlace(placeName, lat, lng);
-            // renderLocations();
-            // });
+            gMap.addListener("click", (mapsMouseEvent) => {
+                let placeName = prompt('name of this place?')
+                let lat = mapsMouseEvent.latLng.lat();
+                let lng = mapsMouseEvent.latLng.lng();
+                mapService.addPlace(placeName, lat, lng);
+                renderPlaces();
+                addMarker({ lat: lat, lng: lng });
+            });
         })
     });
 }
+
+
+function renderPlaces() {
+    let places = mapService.getPlaces()
+    let strHTMLs;
+    if (places.length) {
+        strHTMLs = places.map(place => {
+            return `<ul>
+        <li>${place.placeName}</li>
+        <button type="button" class="delete-btn ${place.id}">X</button>
+        </ul>`;
+        }).join('');
+    }
+    else strHTMLs = 'add some places to your list!'
+    document.querySelector('.saved-places').innerHTML = strHTMLs;
+}
+
+function addMapMarkers() {
+    let places = mapService.getPlaces()
+    places.forEach(place => {
+        addMarker({ lat: place.lat, lng: place.lng });
+    });
+}
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -41,6 +64,12 @@ function addMarker(loc) {
         title: 'Hello World!'
     });
     return marker;
+}
+
+
+function onDeletePlace(id) {
+    mapService.deletePlace(id);
+    renderPlaces();
 }
 
 function panTo(lat, lng) {

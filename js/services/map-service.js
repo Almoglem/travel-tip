@@ -6,7 +6,7 @@ export const mapService = {
     deletePlace
 }
 
-let gPlaces;
+let gPlaces = [];
 
 function getPlaces() {
     var places = storageService.loadFromStorage('places');
@@ -17,7 +17,7 @@ function getPlaces() {
 }
 
 function addPlace(placeName, lat, lng) {
-    gPlaces.push({ placeName, lat, lng, id: lat + lng });
+    gPlaces.push({ placeName, lat, lng, id: _createUniqueId() });
     _updateStorage();
 }
 
@@ -29,4 +29,8 @@ function deletePlace(id) {
 
 function _updateStorage() {
     storageService.saveToStorage('places', gPlaces);
+}
+
+function _createUniqueId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
 }
