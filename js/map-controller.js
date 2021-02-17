@@ -2,49 +2,44 @@ import { mapService } from './services/map-service.js'
 
 var gMap;
 
-mapService.getLocs()
-    .then(locs => console.log('locs', locs))
-
 window.onload = () => {
 
-    document.querySelector('.btn').addEventListener('click', (ev) => {
-        console.log('Aha!', ev.target);
-        panTo(35.6895, 139.6917);
-    })
+    // document.querySelector('.btn').addEventListener('click', (ev) => {
+    //     console.log('Aha!', ev.target);
+    //     panTo(35.6895, 139.6917);
+    // }) /// that button, not relevant for now
 
     initMap()
         .then(() => {
             addMarker({ lat: 32.0749831, lng: 34.9120554 });
         })
         .catch(() => console.log('INIT MAP ERROR'));
-
-    getPosition()
-        .then(pos => {
-            console.log('User position is:', pos.coords);
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        })
 }
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(lat = 35.6804, lng = 139.7690) {
     return _connectGoogleApi()
         .then(() => {
-            console.log('google available');
-            gMap = new google.maps.Map(
-                document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
-            console.log('Map!', gMap);
-            gMap.addListener("click", (mapsMouseEvent) => {
-                let placeName = prompt('name of this place?')
-                let lat = mapsMouseEvent.latLng.lat();
-                let lng = mapsMouseEvent.latLng.lng();
-                // addPlace(placeName, lat, lng);
+            //// locate map at user's position
+            getPosition().then(pos => {
+                lat = pos.coords.latitude;
+                lng = pos.coords.longitude;
+                gMap = new google.maps.Map(
+                    document.querySelector('#map'), {
+                    center: { lat, lng },
+                    zoom: 15
+                });
+                addMarker({ lat: lat, lng: lng });
+
+
+                // gMap.addListener("click", (mapsMouseEvent) => {
+                // let placeName = prompt('name of this place?')
+                // let lat = mapsMouseEvent.latLng.lat();
+                // let lng = mapsMouseEvent.latLng.lng();
+                // mapService.addPlace(placeName, lat, lng);
                 // renderLocations();
-            });
-        })
+                // });
+            })
+        });
 }
 
 function addMarker(loc) {
