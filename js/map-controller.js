@@ -1,9 +1,6 @@
 import { mapService } from './services/map-service.js'
 var gMap;
 
-import keys from '../ignoreme.js';
-const gMapKey = keys.GOOGLE_MAPS_API;
-
 window.onload = () => {
     initMap();
     renderPlaces();
@@ -94,7 +91,8 @@ function getPosition() {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${gMapKey}`;
+    const mapKey = 'AIzaSyDybHbeB5pYRgieSHfH9OiwV0U-ltDdNWs'
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${mapKey}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
