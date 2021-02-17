@@ -1,7 +1,6 @@
 import { mapService } from './services/map-service.js'
 
 var gMap;
-console.log('Main!');
 
 mapService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -29,7 +28,6 @@ window.onload = () => {
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -39,6 +37,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
+            gMap.addListener("click", (mapsMouseEvent) => {
+                let placeName = prompt('name of this place?')
+                let lat = mapsMouseEvent.latLng.lat();
+                let lng = mapsMouseEvent.latLng.lng();
+                // addPlace(placeName, lat, lng);
+                // renderLocations();
+            });
         })
 }
 
@@ -67,7 +72,7 @@ function getPosition() {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyBmDrUgvC-v-g_gYs5jGVsRDIYX-u8F_pM'; 
+    const API_KEY = 'AIzaSyBmDrUgvC-v-g_gYs5jGVsRDIYX-u8F_pM';
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
